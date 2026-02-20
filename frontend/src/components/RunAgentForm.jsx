@@ -54,8 +54,10 @@ function RunAgentForm({ setResult, setLoading, setError }) {
       const result = await triggerAgent(repoUrl, teamName, leaderName);
       setResult(result);
     } catch (err) {
-      setError("Failed to start agent. Please try again.");
-      console.error(err);
+      const errorMsg = err.message || "Failed to start agent. Please try again.";
+      setError(`❌ ${errorMsg}`);
+      setSubmitted(false);
+      console.error("Full error:", err);
     }
   };
 
